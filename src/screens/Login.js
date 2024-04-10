@@ -50,7 +50,7 @@ const Login = () => {
     };
 
     useEffect(() => {
-        generateOTP(); // Generate OTP when component mounts
+        generateOTP();
     }, []);
 
     const form = useRef();

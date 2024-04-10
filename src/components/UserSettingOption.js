@@ -74,12 +74,6 @@ const UserSettingOption = (props) => {
                         Addresses <LocationOnOutlinedIcon className="scale-75" />
                     </li>
                     <li
-                        onClick={() => { navigate("/"); props.closeSettingList(); }} className="text-yellow-500 tracking-wide font-titleFont rounded-md text-md flex items-center justify-center border hover:bg-gray-200 duration-300 cursor-pointer"
-
-                    >
-                        Help Center <HeadsetMicOutlinedIcon className="scale-75" />
-                    </li>
-                    <li
                         onClick={() => { setLogOutOptions(!logOutOptions) }} className="text-yellow-500 tracking-wide font-titleFont rounded-md text-md flex items-center justify-center border hover:bg-gray-200 duration-300 cursor-pointer"
                     >
                         Log Out <LoginOutlinedIcon className="scale-75" />

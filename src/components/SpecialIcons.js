@@ -8,16 +8,20 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import Search from '../components/Search';
 import { HeadsetMicOutlined } from '@material-ui/icons';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import ChatBot from "react-simple-chatbot";
+import { steps } from '../constants/ChatboxSteps'
 const SpecialIcons = () => {
   const cartLength = useSelector(state => state.counter.cartData.length)
   const wishListLength = useSelector(state => state.wishList.wishListData.length)
   const isMobile = useMediaQuery('(max-width: 720px)');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const userInfo = useSelector(state => state.counter.userInfo)
+  const [helpCenter, setHelpCenter] = useState(false);
   const handleSearchIconClick = () => {
     setIsSearchOpen(!isSearchOpen);
   };
-  return (
+  return (<>
     <div className="home-container">
       {isMobile && isSearchOpen && <div className='my-1 fixed top-20 left-1/2 transform -translate-x-1/2 z-50'><Search /></div>}
       <div className="sticky-icon">
@@ -58,11 +62,9 @@ const SpecialIcons = () => {
             </div>
           </Link>
 
-          <Link to="/">
-            <div className="relative">
-              <HeadsetMicOutlined style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
-            </div>
-          </Link>
+          <div className="relative" onClick={() => setHelpCenter(true)}>
+            <HeadsetMicOutlined style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
+          </div>
 
         </>
           :
@@ -85,16 +87,21 @@ const SpecialIcons = () => {
               </div>
             </Link>
 
-            <Link to="/">
-            <div className="relative">
-                <HeadsetMicOutlined style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
-              </div>
-          </Link>
-          
+            <div className="relative" onClick={() => setHelpCenter(true)}>
+              <HeadsetMicOutlined style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
+            </div>
           </>
         }
+
       </div>
+      {helpCenter && <div className="sticky-icon flex justify-between">
+        <ChatBot steps={steps} />
+        <CloseOutlinedIcon style={{ fontSize: "2.5rem" }} className='ms-2 rounded-md cursor-pointer text-purple-800 border-2 border-purple-800' onClick={() => setHelpCenter(false)}/>
+      </div>
+      }
     </div>
+
+  </>
   )
 }
 
