@@ -89,7 +89,7 @@ const Cart = () => {
     setExpanded(!expanded);
   };
   const [addAddress, setAddAddress] = useState(false);
-  const [addressData, setAddressData] = useState([])
+  const [addressData, setAddressData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       const addresses = await fetchAddresses();
@@ -99,13 +99,13 @@ const Cart = () => {
   }, []);
 
   const [address, setAddress] = useState(null);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
   const handleSelectChange = (id) => {
-    const selectedAddressId = id; // Assuming you're passing the address ID as the value of the option
-    const selectedAddress = addressData.find(address => address.id === selectedAddressId);
+    setSelectedAddressId(id);
+    const selectedAddress = addressData.find(address => address.id === id);
     if (selectedAddress) {
       setAddress(selectedAddress);
     }
-    console.log(address);
   };
 
 
@@ -171,7 +171,7 @@ const Cart = () => {
                     {addressData
                       .filter((data) => data.userEmail === userInfo.email)
                       .map((address) => (
-                        <div className="p-2 cursor-pointer border border-light" onClick={() => handleSelectChange(address.id)} key={address.id}>
+                        <div className={`p-2 cursor-pointer border border-light ${address.id === selectedAddressId ? "bg-yellow-200" : ""}`} onClick={() => handleSelectChange(address.id)} key={address.id}>
                           <p>{address.name}</p>
                           <p>{address.phone}</p>
                           <p>{address.house}</p>
