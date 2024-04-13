@@ -10,7 +10,7 @@ const AddAddress = (props) => {
     const addAddress = (name,phone, house, area, district, state, pincode, userEmail ) => {
         if (!name || !phone || !house || !area || !district || !state || !pincode || !userEmail) {
             toast.error("Please fill out all fields");
-            return; // Exit function if any field is empty
+            return;
         }
         const addressCollectionRef = collection(db, 'address');
 

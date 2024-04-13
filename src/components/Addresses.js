@@ -5,7 +5,7 @@ const Addresses = ({address}) => {
   return (
     <div className='lgl:m-3'>
             <div className="p-2 cursor-pointer rounded mb-3 border border-light">
-                <div className="">
+                <div>
                     <h3 className="font-titleFont font-semibold text-orange-500"><LocationOnOutlinedIcon /> </h3>
                     <p>{address.name}</p>
                     <p>{address.phone}</p>

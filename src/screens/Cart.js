@@ -8,7 +8,9 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { app } from '../FirebaseConfig';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from "react-toastify";
-
+import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import AddAddress from "../components/AddAddress";
+import { fetchAddresses } from '../FirebaseConfig';
 const Cart = () => {
   const products = useSelector((state) => state.counter.cartData);
   const userInfo = useSelector(state => state.counter.userInfo)
@@ -44,13 +46,18 @@ const Cart = () => {
     if(!userInfo){
       toast.error("Please Login First");
       navigate('/signup');
-    }else{
-      handleCheckout(products, userInfo.email, finalPrice);
+    }
+    if (!address) {
+      toast.error("Please provide Delivery address");
+      return;
+    }
+    else{
+      handleCheckout(products, userInfo.email, finalPrice, address);
       dispatch(resetCart());
     }
   }
 
-  const handleCheckout = (cartData, userEmail,finalPrice) => {
+  const handleCheckout = (cartData, userEmail,finalPrice, address) => {
     // Get a Firestore reference to the 'carts' collection
     const cartCollectionRef = collection(db, 'orders');
 
@@ -61,6 +68,7 @@ const Cart = () => {
       amount: finalPrice,
       status: "Order placed",
       paymentMethod: "COD",
+      address: address,
       date: new Date().toLocaleDateString(),
     };
 
@@ -74,6 +82,25 @@ const Cart = () => {
         console.error("Error adding cart data to Firestore: ", error);
       });
   };
+  const [addAddress, setAddAddress] = useState(false);
+    const [addressData, setAddressData] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+            const addresses = await fetchAddresses();
+            setAddressData(addresses);
+        };
+        fetchData();        
+    }, []);
+
+  const [address, setAddress] = useState(null);
+  const handleSelectChange = (event) => {
+    const selectedAddressId = event.target.value; // Assuming you're passing the address ID as the value of the option
+    const selectedAddress = addressData.find(address => address.id === selectedAddressId);
+    if (selectedAddress) {
+      setAddress(selectedAddress);
+    }
+  };
+  
 
   return (
     <div className="max-w-container mx-auto px-4">
@@ -117,6 +144,23 @@ const Cart = () => {
             </div>
             {/*<p className="text-lg font-semibold">Update Cart</p>*/}
           </div>
+          <div className="mt-4 border py-4 px-4 items-center">
+            <h3 className="text-lg font-semibold">Address for Delivery</h3>
+
+            <select onChange={handleSelectChange} className="cursor-pointer w-full h-8 px-2 border text-primeColor text-md outline-none border-gray-600">
+              <option>Select Address</option>
+              {addressData
+                .filter((data) => data.userEmail === userInfo.email)
+                .map((address) => (
+                  <option className="cursor-pointer" key={address.id} value={address.id}>
+                    {address.house}, {address.area}, {address.district}, {address.state}, {address.pincode}, {address.name}, {address.phone}
+                  </option>
+                ))}
+            </select>
+            <button onClick={() => setAddAddress(true)} className="rounded-md text-gray-500 cursor-pointer mt-3 bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 px-8 py-2 font-semibold duration-300">
+              <AddLocationAltOutlinedIcon style={{ fontSize: '24px' }} /> Add New Address
+            </button>
+          </div>
           <div className="max-w-7xl gap-4 flex justify-end mt-4">
             <div className="w-96 flex flex-col gap-4">
               <h1 className="text-2xl font-semibold text-left">Cart totals</h1>
@@ -145,8 +189,6 @@ const Cart = () => {
                 <button onClick={() => proceedCheckout()} className="w-52 h-10 rounded-md text-white bg-green-600 hover:bg-green-700 duration-300">
                   Proceed to Checkout
                 </button>
-
-
               </div>
             </div>
           </div>
@@ -176,6 +218,7 @@ const Cart = () => {
           </motion.div>
         </div>
       )}
+      {addAddress && <AddAddress setAddAddress={() => setAddAddress(false)} />}
       <ToastContainer
         position="top-left"
         autoClose={2000}
