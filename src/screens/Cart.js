@@ -11,6 +11,8 @@ import { ToastContainer, toast } from "react-toastify";
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import AddAddress from "../components/AddAddress";
 import { fetchAddresses } from '../FirebaseConfig';
+import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 const Cart = () => {
   const products = useSelector((state) => state.counter.cartData);
   const userInfo = useSelector(state => state.counter.userInfo)
@@ -19,7 +21,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const db = getFirestore(app);
-  
+
   useEffect(() => {
     let price = 0;
     products.map((item) => {
@@ -29,7 +31,7 @@ const Cart = () => {
     setTotalAmt(price);
   }, [products]);
   useEffect(() => {
-    window.scrollTo(0, 0); // Scrolls to the top when component mounts
+    window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
     if (totalAmt <= 200) {
@@ -43,7 +45,7 @@ const Cart = () => {
 
   let finalPrice = totalAmt + shippingCharge; // Calculate the final price
   const proceedCheckout = () => {
-    if(!userInfo){
+    if (!userInfo) {
       toast.error("Please Login First");
       navigate('/signup');
     }
@@ -51,13 +53,13 @@ const Cart = () => {
       toast.error("Please provide Delivery address");
       return;
     }
-    else{
+    else {
       handleCheckout(products, userInfo.email, finalPrice, address);
       dispatch(resetCart());
     }
   }
 
-  const handleCheckout = (cartData, userEmail,finalPrice, address) => {
+  const handleCheckout = (cartData, userEmail, finalPrice, address) => {
     // Get a Firestore reference to the 'carts' collection
     const cartCollectionRef = collection(db, 'orders');
 
@@ -82,25 +84,30 @@ const Cart = () => {
         console.error("Error adding cart data to Firestore: ", error);
       });
   };
+  const [expanded, setExpanded] = useState(false);
+  const toggleExpanded = () => {
+    setExpanded(!expanded);
+  };
   const [addAddress, setAddAddress] = useState(false);
-    const [addressData, setAddressData] = useState([])
-    useEffect(() => {
-        const fetchData = async () => {
-            const addresses = await fetchAddresses();
-            setAddressData(addresses);
-        };
-        fetchData();        
-    }, []);
+  const [addressData, setAddressData] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const addresses = await fetchAddresses();
+      setAddressData(addresses);
+    };
+    fetchData();
+  }, []);
 
   const [address, setAddress] = useState(null);
-  const handleSelectChange = (event) => {
-    const selectedAddressId = event.target.value; // Assuming you're passing the address ID as the value of the option
+  const handleSelectChange = (id) => {
+    const selectedAddressId = id; // Assuming you're passing the address ID as the value of the option
     const selectedAddress = addressData.find(address => address.id === selectedAddressId);
     if (selectedAddress) {
       setAddress(selectedAddress);
     }
+    console.log(address);
   };
-  
+
 
   return (
     <div className="max-w-container mx-auto px-4">
@@ -144,23 +151,41 @@ const Cart = () => {
             </div>
             {/*<p className="text-lg font-semibold">Update Cart</p>*/}
           </div>
+
           <div className="mt-4 border py-4 px-4 items-center">
             <h3 className="text-lg font-semibold">Address for Delivery</h3>
+            <div className='lgl:m-3'>
+              <div className="rounded mb-2 border border-light">
+                <div className="flex justify-between p-2 cursor-pointer" onClick={toggleExpanded}>
+                  <h3 className="font-semibold">Select Address</h3>
+                  <span className={'fs-20'}>
+                    {expanded ? <ArrowDropDownOutlinedIcon /> : <ArrowRightOutlinedIcon />}
+                  </span>
+                </div>
 
-            <select onChange={handleSelectChange} className="cursor-pointer w-full h-8 px-2 border text-primeColor text-md outline-none border-gray-600">
-              <option>Select Address</option>
-              {addressData
-                .filter((data) => data.userEmail === userInfo.email)
-                .map((address) => (
-                  <option className="cursor-pointer" key={address.id} value={address.id}>
-                    {address.house}, {address.area}, {address.district}, {address.state}, {address.pincode}, {address.name}, {address.phone}
-                  </option>
-                ))}
-            </select>
-            <button onClick={() => setAddAddress(true)} className="rounded-md text-gray-500 cursor-pointer mt-3 bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 px-8 py-2 font-semibold duration-300">
-              <AddLocationAltOutlinedIcon style={{ fontSize: '24px' }} /> Add New Address
-            </button>
+                {expanded && (<div>
+                  <button onClick={() => setAddAddress(true)} className="rounded-md mb-2 mx-2 text-gray-500 cursor-pointer bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 px-8 py-2 font-semibold duration-300">
+                    <AddLocationAltOutlinedIcon style={{ fontSize: '24px' }} /> Add Address
+                  </button>
+                  {userInfo && <div className="">
+                    {addressData
+                      .filter((data) => data.userEmail === userInfo.email)
+                      .map((address) => (
+                        <div className="p-2 cursor-pointer border border-light" onClick={() => handleSelectChange(address.id)} key={address.id}>
+                          <p>{address.name}</p>
+                          <p>{address.phone}</p>
+                          <p>{address.house}</p>
+                          <p>{address.area}</p>
+                          <p>{address.district}, {address.state}, {address.pincode}</p>
+                        </div>
+                      ))}
+                  </div>}
+                </div>
+                )}
+              </div>
+            </div>
           </div>
+
           <div className="max-w-7xl gap-4 flex justify-end mt-4">
             <div className="w-96 flex flex-col gap-4">
               <h1 className="text-2xl font-semibold text-left">Cart totals</h1>
