@@ -8,6 +8,7 @@ import PieChartIcon from '@mui/icons-material/PieChart';
 import DonutLargeOutlinedIcon from '@mui/icons-material/DonutLargeOutlined';
 
 const AdminHome = () => {
+    
     const navigate = useNavigate();
     const [progress, setProgress] = useState(false);
     const [chartType, setChartType] = useState("bar");
