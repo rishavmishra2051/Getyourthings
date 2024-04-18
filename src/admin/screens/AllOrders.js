@@ -34,6 +34,15 @@ const AllOrders = () => {
     });
     return length;
   };
+  const newOrders = () => {
+    let length = 0;
+    orderData.forEach((order) => {
+      if(order.status === 'Order placed'){
+        length ++;
+      }
+    });
+    return length;
+  };
   const pendingOrders = () => {
     let length = deliveredOrders()+cancelledOrders();
     
@@ -61,10 +70,11 @@ const AllOrders = () => {
         </div>      
       </div>
       <div className='flex justify-center gap-4'>
-      <p className='font-semibold'>Total Orders: <span className='text-purple-600'>{orderData.length}</span></p>
+      <p className='font-semibold'>New Orders: <span className='text-purple-600'>{newOrders()}</span></p>
       <p className='font-semibold'>Pending Orders: <span className='text-yellow-400'>{pendingOrders()}</span></p>
       <p className='font-semibold'>Delivered Orders: <span className='text-green-600'>{deliveredOrders()}</span></p>
       <p className='font-semibold'>Cancelled Orders: <span className='text-red-600'>{cancelledOrders()}</span></p>
+      <p className='font-semibold'>Total Orders: <span className='text-blue-600'>{orderData.length}</span></p>
       </div>
       
       <div className="mt-5 max-w-container mx-auto px-4">
