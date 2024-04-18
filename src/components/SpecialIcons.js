@@ -11,6 +11,7 @@ import { HeadsetMicOutlined } from '@material-ui/icons';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import ChatBot from "react-simple-chatbot";
 import { steps } from '../constants/ChatboxSteps'
+
 const SpecialIcons = () => {
   const cartLength = useSelector(state => state.counter.cartData.length)
   const wishListLength = useSelector(state => state.wishList.wishListData.length)
@@ -21,7 +22,7 @@ const SpecialIcons = () => {
   const handleSearchIconClick = () => {
     setIsSearchOpen(!isSearchOpen);
   };
-  return (<>
+  return (<div className=''>
     <div className="home-container">
       {isMobile && isSearchOpen && <div className='my-1 fixed top-20 left-1/2 transform -translate-x-1/2 z-50'><Search /></div>}
       <div className="sticky-icon">
@@ -101,7 +102,7 @@ const SpecialIcons = () => {
       }
     </div>
 
-  </>
+  </div>
   )
 }
 

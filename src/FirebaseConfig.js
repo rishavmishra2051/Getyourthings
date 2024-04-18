@@ -12,7 +12,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 //Init Service
 const db = getFirestore();
-const colRef = collection(db, 'orders');
+export const colRef = collection(db, 'orders');
 const adrRef = collection(db, 'address');
 
 // Define a function to fetch orders data asynchronously

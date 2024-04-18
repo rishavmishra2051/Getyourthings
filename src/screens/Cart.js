@@ -171,7 +171,7 @@ const Cart = () => {
                     {addressData
                       .filter((data) => data.userEmail === userInfo.email)
                       .map((address) => (
-                        <div className={`p-2 cursor-pointer border border-light ${address.id === selectedAddressId ? "bg-yellow-200" : ""}`} onClick={() => handleSelectChange(address.id)} key={address.id}>
+                        <div className={`p-2 cursor-pointer border border-light ${address.id === selectedAddressId ? "bg-blue-200" : ""}`} onClick={() => handleSelectChange(address.id)} key={address.id}>
                           <p>{address.name}</p>
                           <p>{address.phone}</p>
                           <p>{address.house}</p>

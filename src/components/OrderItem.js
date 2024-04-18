@@ -11,7 +11,8 @@ const OrderItem = ({ item, status, date }) => {
         toast.success("Order Cancelled");
         console.log("Order Cancelled");
     }
-    return (<div className='mb-4 border'>
+    return (
+    <div className='mb-4 border'>
         <div className='flex justify-between mx-2 mt-2'>
             <p className='font-titleFont font-semibold'>Date: {date}</p>
             <p className='inline-flex font-titleFont font-semibold'>Status: <p className='font-titleFont font-semibold' style={{ color: status === 'Delivered' ? 'green' : status === 'Returned' ? 'red' : '#FFA500' }}>{status}</p></p>

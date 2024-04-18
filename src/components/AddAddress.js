@@ -40,13 +40,12 @@ const AddAddress = (props) => {
         <div>
             <div className="max-w-[1000px] min-w-[400px] bg-white items-center rounded-md shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <CloseOutlinedIcon onClick={() => { props.setAddAddress(); }} className="absolute top-0 right-0 cursor-pointer border border-2 border-red-600 bg-red-600" />
-
                 <div className='font-titleFont font-semibold p-2 m-2'>
                     <label htmlFor="name" className='me-5'>Full Name </label>
                     <input required type="text" id="name" placeholder="Full Name" className="w-full mb-2 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
 
                     <label htmlFor="phone" className='me-5'>Phone Number </label>
-                    <input required type="text" id="phone" placeholder="Full Name" className="w-full mb-2 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    <input required type="text" id="phone" placeholder="Phone Number" className="w-full mb-2 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
 
                     <label htmlFor="house" className='me-5'>House no./Society/Apartment </label>
                     <input required type="text" id="house" placeholder="House no./Society/Apartment" className="w-full mb-2 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />

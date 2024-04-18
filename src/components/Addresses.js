@@ -4,7 +4,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 const Addresses = ({address}) => {
   return (
     <div className='lgl:m-3'>
-            <div className="p-2 cursor-pointer rounded mb-3 border border-light">
+            <div className="p-2 cursor-pointer rounded mb-3 lgl:card-border border border-light">
                 <div>
                     <h3 className="font-titleFont font-semibold text-orange-500"><LocationOnOutlinedIcon /> </h3>
                     <p>{address.name}</p>

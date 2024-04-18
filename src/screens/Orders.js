@@ -5,20 +5,15 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import OrderItem from '../components/OrderItem';
-
 const Orders = () => {
-  const [orderData, setOrderData] = useState([])
-  const userInfo = useSelector(state => state.counter.userInfo)
-  //console.log(orderData)
+  const [orderData, setOrderData] = useState([]);
+  const userInfo = useSelector(state => state.counter.userInfo);
   useEffect(() => {
     const fetchData = async () => {
       const orders = await fetchOrders();
       setOrderData(orders);
     };
-  
-    fetchData(); // Call the function once when the component mounts
-  
-    // Optionally, you can add dependencies if you want to refetch orders based on certain conditions
+    fetchData();
   }, []);
   
   return (
