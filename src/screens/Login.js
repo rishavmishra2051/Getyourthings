@@ -112,11 +112,8 @@ const Login = () => {
                         })
                     );
                     setTimeout(() => {
-                        if(email === process.env.REACT_APP_ADMIN_EMAIL){
-                            navigate("/admin");
-                        }else{
-                            navigate("/");
-                        }
+                        setOtpWindow(false);
+                        navigate("/");
                     }, 1500);
                     toast.success("Sign In Successfully!");
                 })

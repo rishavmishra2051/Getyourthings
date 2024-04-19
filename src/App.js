@@ -6,7 +6,6 @@ import ProductDetail from './screens/ProductDetail';
 import Cart from './screens/Cart';
 import Product from './components/Product';
 import WishList from './screens/WishList';
-import SignUp from './screens/SignUp';
 import PaymentTest from './screens/PaymentTest';
 import SearchResult from './screens/SearchResult';
 import Orders from './screens/Orders';
