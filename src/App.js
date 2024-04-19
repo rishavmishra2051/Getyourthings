@@ -22,21 +22,10 @@ import Login from './screens/Login';
 function App() {
   const userInfo = useSelector(state => state.counter.userInfo);
   return (
-    <>{userInfo && userInfo.email === process.env.REACT_APP_ADMIN_EMAIL ? (
+    <>
       <Router>
         <div>
-          <AdminHeader />
-          <Routes>
-            <Route exact path="/admin" element={<AdminHome />} />
-            <Route exact path="/allorders" element={<AllOrders />} />
-            <Route exact path="/allusers" element={<AllUsers />} />
-          </Routes>
-        </div>
-      </Router>
-    ) : (
-      <Router>
-        <div>
-          <Header />
+        {userInfo && userInfo.email === process.env.REACT_APP_ADMIN_EMAIL ? <AdminHeader /> : <Header />}
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/signup" element={<Login />} />
@@ -48,14 +37,14 @@ function App() {
             <Route exact path="/orders" element={<Orders />} />
             <Route exact path="/offers" element={<Offers />} />
             <Route exact path="/addresses" element={<UserAddresses />} />
+            <Route exact path="/admin" element={<AdminHome />} />
+            <Route exact path="/allorders" element={<AllOrders />} />
+            <Route exact path="/allusers" element={<AllUsers />} />
             <Route exact path="/paymenttest" element={<PaymentTest />} />
-
           </Routes>
-          <Footer />
+          {userInfo && userInfo.email === process.env.REACT_APP_ADMIN_EMAIL ? '' :<Footer />}
         </div>
-
       </Router>
-    )}
     </>
   );
 }
