@@ -123,6 +123,11 @@
     z-index: 9999;
   }
 
+  .sticky-summary {
+    position: fixed;
+    z-index: 9999;
+  }
+
   .modal {
     max-width: 500px;
     padding: 20px;
@@ -227,7 +232,6 @@
   @media screen and (min-width: 768px) {
     .order-chart {
       max-width: 350px;
-      /* Set maximum width to 50% for screens larger than 768px */
     }
   }
 

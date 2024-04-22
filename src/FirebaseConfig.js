@@ -13,6 +13,7 @@ export const app = initializeApp(firebaseConfig);
 //Init Service
 const db = getFirestore();
 export const colRef = collection(db, 'orders');
+const userRef = collection(db, 'users');
 const adrRef = collection(db, 'address');
 
 // Define a function to fetch orders data asynchronously
@@ -24,6 +25,20 @@ export const fetchOrders = async () => {
       orders.push({ ...doc.data(), id: doc.id });
     });
     return orders;
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+};
+
+export const fetchUsers = async () => {
+  try {
+    const snapshot = await getDocs(userRef);
+    let users = [];
+    snapshot.docs.forEach((doc) => {
+      users.push({ ...doc.data(), id: doc.id });
+    });
+    return users;
   } catch (error) {
     console.log(error.message);
     return [];

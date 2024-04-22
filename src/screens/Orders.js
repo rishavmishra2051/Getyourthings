@@ -11,7 +11,8 @@ const Orders = () => {
   useEffect(() => {
     const fetchData = async () => {
       const orders = await fetchOrders();
-      setOrderData(orders);
+      const sortedOrders = orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setOrderData(sortedOrders);
     };
     fetchData();
   }, []);
@@ -29,7 +30,7 @@ const Orders = () => {
                 <div key={order.id}>
                   {order.cartData.map((item) => (
                     <div key={item.id}>
-                      <OrderItem item={item} status={order.status} date={order.date} />
+                      <OrderItem id={order.id} item={item} status={order.status} date={order.date} />
                     </div>
                   ))}
                 </div>

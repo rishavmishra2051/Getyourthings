@@ -5,7 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/counterSlice";
 import emailjs from '@emailjs/browser';
-
+import { app } from '../FirebaseConfig';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 const Login = () => {
 
     const register = (RegForm, LoginForm, Indicator) => {
@@ -64,10 +65,10 @@ const Login = () => {
             })
             .then(
                 () => {
-                    console.log('SUCCESS!');
+                    console.log('OTP sent!');
                 },
                 (error) => {
-                    console.log('FAILED...', error.text);
+                    console.log('OTP not sent', error.text);
                 },
             );
     };
@@ -85,6 +86,7 @@ const Login = () => {
                             image: user.photoURL,
                         })
                     );
+                    addUsertoDB(name, email, password);
                     setTimeout(() => {
                         navigate("/");
                     }, 1500);
@@ -122,6 +124,25 @@ const Login = () => {
             console.log(error);
         }
     }
+    const db = getFirestore(app);
+    const addUsertoDB = (name, userEmail, password) => {
+        const cartCollectionRef = collection(db, 'users');   
+        const userDoc = {
+          name: name,
+          userEmail: userEmail,
+          password: password,
+          date: new Date().toLocaleDateString(),
+        };
+    
+        // Add the document to the 'carts' collection
+        addDoc(cartCollectionRef, userDoc)
+          .then((docRef) => {
+            console.log("User added successfully!", docRef.id);
+          })
+          .catch((error) => {
+            console.error("User is not added to Firestore: ", error);
+          });
+      };
 
     const handleOtp = async () => {
         if (otp === otpValue) {

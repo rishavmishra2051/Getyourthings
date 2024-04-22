@@ -39,7 +39,7 @@ const AdminOrderItem = ({ order }) => {
         <div className='lgl:m-3'>
             <div className="rounded mb-3 border border-light">
                 <div className="flex justify-between p-2 cursor-pointer" onClick={toggleExpanded}>
-                    <h3 className="font-semibold text-purple-500" style={{ color: order.status === 'Delivered' ? 'green' : order.status === 'Cancelled' ? 'red' : order.status !== 'Order placed' ? '#eec60a' : '#7a0697' }}>{order.id}</h3>
+                    <h3 className="font-semibold text-purple-500" style={{ color: order.status === 'Delivered' ? 'green' :order.status === 'Returned' ? 'orange' : order.status === 'Cancelled' ? 'red' : order.status !== 'Order placed' ? '#eec60a' : '#7a0697' }}>{order.id}</h3>
                     <small className=''><span className={'fs-20'}>
                         {expanded ? <ArrowDropDownOutlinedIcon /> : <ArrowRightOutlinedIcon />}
                     </span></small>
