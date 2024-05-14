@@ -13,7 +13,7 @@ const AllUsers = () => {
     };
     fetchData();
   }, []);
-  console.log(users)
+  
   return (
     <div>
       <div className="mx-auto px-4 flex justify-between items-center mt-4">
@@ -31,28 +31,28 @@ const AllUsers = () => {
         </div>
       </div>
       <div className="mx-auto flex justify-between items-center mt-2">
-      <table className='flex-grow border-2 border-black border-collapse m-2'>
-        <thead >
-          <tr>
-            <th className="border-2 border-black">Email Id</th>
-            <th className="border-2 border-black">Name</th>
-            <th className="border-2 border-black">Password</th>
-            <th className="border-2 border-black">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users
-            .filter((data) => data.userEmail.includes(search) || data.name.includes(search)).map((user) => (
-            <tr key={user.id} className="text-center">
-              <td className="border-2 border-black">{user.userEmail}</td>
-              <td className="border-2 border-black">{user.name}</td>
-              <td className="border-2 border-black">{user.password}</td>
-              <td className="border-2 border-black">{user.date}</td>
+        <table className='flex-grow border-2 border-black border-collapse m-2'>
+          <thead >
+            <tr>
+              <th className="border-2 border-black">Email Id</th>
+              <th className="border-2 border-black">Name</th>
+              <th className="border-2 border-black">Password</th>
+              <th className="border-2 border-black">Date</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-</div>
+          </thead>
+          <tbody>
+            {users
+              .filter((data) => data.userEmail.includes(search) || data.name.includes(search)).map((user) => (
+                <tr key={user.id} className="text-center">
+                  <td className="border-2 border-black">{user.userEmail}</td>
+                  <td className="border-2 border-black">{user.name}</td>
+                  <td className="border-2 border-black">{user.password}</td>
+                  <td className="border-2 border-black">{user.date}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 @layer components {
+  
   .nav-item:after {
     content: "";
     width: 0%;
@@ -17,6 +18,86 @@
 
   .nav-item:hover:after {
     width: 100%;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .icon {
+    text-decoration: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    /* background-color: hsla(209 20% 70% / 20%);  /* For dark theme */
+    background-color: #ffffff00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+      rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+      border: #f1f1f1 1px solid;
+  }
+  
+  .icon > span {
+    color: #2c786c;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  
+  .icon:hover > span {
+    scale: 1.2;
+    color: #f1f1f1;
+  }
+  
+  .icon:before {
+    background: var(--color);
+    content: "";
+    position: absolute;
+    width: 130%;
+    height: 130%;
+    left: -110%;
+    top: 100%;
+    transform: rotate(45deg);
+  }
+  
+  .icon:hover:before {
+    animation: slide 0.7s forwards;
+  }
+
+  @keyframes slide {
+    50% {
+      left: 10%;
+      top: -40%;
+    }
+  
+    100% {
+      left: -15%;
+      top: -15%;
+    }
+  }
+
+  .icon:has(.instagram) {
+    --color: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+  }
+  .icon:has(.linkedin) {
+    --color: #0077b5;
+  }
+  .icon:has(.facebook) {
+    --color: rgb(13, 86, 244);
+  }
+  .icon:has(.github) {
+    --color: #333;
+  }
+  .icon:has(.mail) {
+    --color: linear-gradient(45deg, #d93025, #ea4335, #fbbc04, #068106 ); /* Gmail colors */
   }
 
   .form-box {

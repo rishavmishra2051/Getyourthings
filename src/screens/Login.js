@@ -42,12 +42,12 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [otpWindow, setOtpWindow] = useState(false);
-    const [otp, setOTP] = useState('');
+    const [otp, setOtp] = useState('');
     const [otpValue, setOtpValue] = useState('');
 
     const generateOTP = () => {
         const randomOTP = Math.floor(1000 + Math.random() * 9000);
-        setOTP(randomOTP.toString());
+        setOtp(randomOTP.toString());
     };
 
     useEffect(() => {
@@ -134,10 +134,9 @@ const Login = () => {
           date: new Date().toLocaleDateString(),
         };
     
-        // Add the document to the 'carts' collection
         addDoc(cartCollectionRef, userDoc)
           .then((docRef) => {
-            console.log("User added successfully!", docRef.id);
+            console.log("User added successfully!");
           })
           .catch((error) => {
             console.error("User is not added to Firestore: ", error);
@@ -195,7 +194,6 @@ const Login = () => {
                         <input className='rounded-md' type="email" name="user_email" placeholder="Email Id" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         <input className='rounded-md' type="password" placeholder="Create Password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         <textarea name="otp" value={otp} style={{ display: 'none' }} />
-
                         <button type="button" onClick={handleSubmit} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
                             Register
                         </button>
