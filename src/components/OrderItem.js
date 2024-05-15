@@ -28,7 +28,7 @@ const OrderItem = ({ id, item, status, date }) => {
             toast.error('Failed to update order status');
         }
     };
-    console.log(id);
+    //console.log(id);
     return (
     <div className='mb-4 border'>
         <div className='flex justify-between mx-2 mt-2'>
