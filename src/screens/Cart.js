@@ -148,6 +148,9 @@ const Cart = () => {
               <button className="bg-blue-600 text-white hover:bg-blue-700 rounded-md px-1.5 py-1 text-sm mdl:text-base font-semibold cursor-pointer">
                 Apply Coupon
               </button>
+              <button onClick={()=>navigate('/paymenttest', { state: { amount: finalPrice } })} className="bg-blue-600 text-white hover:bg-blue-700 rounded-md px-1.5 py-1 text-sm mdl:text-base font-semibold cursor-pointer">
+                Pay
+              </button>
             </div>
             {/*<p className="text-lg font-semibold">Update Cart</p>*/}
           </div>

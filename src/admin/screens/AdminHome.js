@@ -33,6 +33,9 @@ const AdminHome = () => {
                     <div className='admin-card' onClick={() => { navigate('/allusers') }}>
                         View Users
                     </div>
+                    <div className='admin-card' onClick={() => { navigate('/inventary') }}>
+                        Inventary
+                    </div>
                 </div>
             </div>
             {progress && (
