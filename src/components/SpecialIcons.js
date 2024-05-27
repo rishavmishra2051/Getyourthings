@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import Search from '../components/Search';
 import { HeadsetMicOutlined } from '@material-ui/icons';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import ChatBot from "react-simple-chatbot";
 import { steps } from '../constants/ChatboxSteps'
+import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
 
 const SpecialIcons = () => {
   const cartLength = useSelector(state => state.counter.cartData.length)
@@ -35,7 +35,7 @@ const SpecialIcons = () => {
             />
           ) : ''
         }
-        {userInfo ? <>
+        
           <Link to="/cart">
             <div className="relative">
               <ShoppingCartOutlinedIcon style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
@@ -45,20 +45,20 @@ const SpecialIcons = () => {
             </div>
           </Link>
 
-          <Link to="/offers">
-            <div className="relative">
-              <LocalOfferOutlinedIcon style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
-              <span className="absolute text-xs text-white -top-1 left-6 w-4 font-semibold p-1 h-4 bg-blue-500 rounded-full flex justify-center items-center">
-                %
-              </span>
-            </div>
-          </Link>
-
-          <Link to="/wishlist">
+          {userInfo && <Link to="/wishlist">
             <div className="relative">
               <FavoriteBorderOutlinedIcon style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
               <span className="absolute text-xs text-white -top-1 left-6 w-4 font-semibold p-1 h-4 bg-green-500 rounded-full flex justify-center items-center">
                 {wishListLength > 0 ? wishListLength : 0}
+              </span>
+            </div>
+          </Link>}
+
+          <Link to="/seller">
+            <div className="relative">
+              <LoyaltyOutlinedIcon style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
+              <span className="absolute text-xs text-white -top-1 left-6 w-4 font-semibold p-1 h-4 bg-orange-500 rounded-full flex justify-center items-center">
+                %
               </span>
             </div>
           </Link>
@@ -66,33 +66,6 @@ const SpecialIcons = () => {
           <div className="relative" onClick={() => setHelpCenter(true)}>
             <HeadsetMicOutlined style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
           </div>
-
-        </>
-          :
-          <>
-            <Link to="/cart">
-              <div className="relative">
-                <ShoppingCartOutlinedIcon style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
-                <span className="absolute text-xs text-white -top-1 left-6 w-4 font-semibold p-1 h-4 bg-green-500 rounded-full flex justify-center items-center">
-                  {cartLength > 0 ? cartLength : 0}
-                </span>
-              </div>
-            </Link>
-
-            <Link to="/offers">
-              <div className="relative">
-                <LocalOfferOutlinedIcon style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
-                <span className="absolute text-xs text-white -top-1 left-6 w-4 font-semibold p-1 h-4 bg-green-500 rounded-full flex justify-center items-center">
-                  %
-                </span>
-              </div>
-            </Link>
-
-            <div className="relative" onClick={() => setHelpCenter(true)}>
-              <HeadsetMicOutlined style={{ fontSize: "2.5rem" }} className='mb-2 font-titleFont text-base text-white bg-yellow-400 hover:text-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-400 rounded-md cursor-pointer border-2 border-yellow-400 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500' />
-            </div>
-          </>
-        }
 
       </div>
       {helpCenter && <div className="sticky-icon flex justify-between">

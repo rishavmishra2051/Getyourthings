@@ -15,7 +15,7 @@ const db = getFirestore();
 export const colRef = collection(db, 'orders');
 const userRef = collection(db, 'users');
 const adrRef = collection(db, 'address');
-
+export const sellerRef = collection(db, 'sellers');
 // Define a function to fetch orders data asynchronously
 export const fetchOrders = async () => {
   try {
@@ -53,6 +53,20 @@ export const fetchAddresses = async () => {
       addresses.push({ ...doc.data(), id: doc.id });
     });
     return addresses;
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+};
+
+export const fetchSellers = async () => {
+  try {
+    const snapshot = await getDocs(sellerRef);
+    let sellers = [];
+    snapshot.docs.forEach((doc) => {
+      sellers.push({ ...doc.data(), id: doc.id });
+    });
+    return sellers;
   } catch (error) {
     console.log(error.message);
     return [];

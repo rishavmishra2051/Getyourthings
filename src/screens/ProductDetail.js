@@ -15,7 +15,6 @@ import { ToastContainer, toast } from "react-toastify";
 const ProductDetail = () => {
     const { state } = useLocation();
     const { item } = state;
-    const [qty, setQty] = useState(1);
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -42,84 +41,98 @@ const ProductDetail = () => {
         loadProducts();
     }, []);
 
-    let finalPrice = qty * parseInt(item.price);   //This is where Price is changing
+    let finalPrice = baseQty * parseInt(item.price);   //This is where Price is changing
 
     return (
         <div>
-            <div
-                className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30 hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative flex flex-col gap-4">
-                <div className='flex'>
-                    <span className="text-xs capitalize italic absolute top-2 left-2 text-gray-500">
-                        {item.category}
-                    </span>
-                    <span className="text-xs capitalize italic absolute top-2 right-2 text-yellow-500 cursor-pointer">
-                        <FavoriteBorderOutlinedIcon onClick={() => userInfo ? dispatch(addToWishlist({ ...item })) && toast.success("Item added to wishlist!") : handleLogin()} />
-                    </span>
-                </div>
-                <div className="w-full h-auto flex items-center justify-center relative group">
-                    <img
-                        className="w-52 h-64 object-contain"
-                        src={item.image}
-                        alt="ProductImg"
-                    />
 
-                </div>
-                <small className="text-gray-500 text-center">
-                    {item.rating.count} People ordered this in last 7 days
-                </small>
-                <div className="px-4 bg-white flex flex-col gap-1 z-10">
-                <h2 className="font-titleFont tracking-wide text-lg text-gray-600 font-medium">
-                            {item.title}
-                        </h2>
-                    
-
-                    <div className="flex items-center gap-8">
-                        <p className="text-lg text-gray-600 font-semibold">
-                            ${finalPrice}
-                        </p>
-
-                        <p className="flex font-semibold items-center text-gray-600">
-                            Quantity:
-                            <div className="flex items-center ms-1 gap-2 text-sm font-semibold">
-                                <button onClick={() => setBaseQty(baseQty === 1 ? (baseQty = 1) : baseQty - 1)} className="border font-normal text-lg items-center justify-center px-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black"
-                                >-</button>
-                                {baseQty}
-                                <button onClick={() => setBaseQty(baseQty + 1)} className="border font-normal text-lg items-center justify-center px-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black"
-                                >+</button>
+            <div className='max-w-container mx-auto px-4'>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="col-span-1">
+                        <div className="bg-white h-auto py-6 z-30 relative flex flex-col gap-4">
+                            <div className='flex'>
+                                <span className="text-xs capitalize italic absolute top-2 left-2 text-gray-500">
+                                    {item.category}
+                                </span>
+                                <span className="text-xs capitalize italic absolute top-2 right-2 text-yellow-500 cursor-pointer">
+                                    <FavoriteBorderOutlinedIcon onClick={() => userInfo ? dispatch(addToWishlist({ ...item })) && toast.success("Item added to wishlist!") : handleLogin()} />
+                                </span>
                             </div>
-                        </p>
+                            <div className="w-full h-auto flex items-center justify-center relative group">
+                                <img
+                                    className="w-52 h-64 object-contain"
+                                    src={item.image}
+                                    alt="ProductImg"
+                                />
 
-                    </div>
-
-                    <div>
-                        <p className="text-sm text-text_color">{item.description}</p>
-                        <div className="flex items-center">
-                            {Array.from(Array(parseInt(item.rating.rate)), (e, i) => {
-                                return (
-                                    <div className="text-yellow-500 ">
-                                        <StarIcon />
-                                    </div>
-                                );
-                            })}
-                            {Array.from(Array(5 - parseInt(item.rating.rate)), (e, i) => {
-                                return (
-                                    <div className="text-yellow-500 ">
-                                        <StarBorderOutlinedIcon />
-                                    </div>)
-                            })}
+                            </div>
+                            <small className="text-gray-500 text-center">
+                                {item.rating.count} People ordered this in last 7 days
+                            </small>
                         </div>
                     </div>
-                    <div className='flex gap-2'>
-                        <button onClick={() => dispatch(addToCart({ ...item, quantity: 1 })) && toast.success("Item added to cart!")} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
-                            Add to Cart
-                        </button>
-                        <button className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
-                            Buy Now
-                        </button>
+                    <div className="col-span-1">
+                        <div className="bg-white h-auto py-6 z-30 relative flex flex-col gap-4">
+
+                            <div className="w-full h-auto flex items-center justify-center relative group">
+                                <div className="px-4 bg-white flex flex-col gap-1">
+                                    <h2 className="font-titleFont tracking-wide text-lg text-gray-600 font-medium">
+                                        {item.title}
+                                    </h2>
+                                    <div className="flex items-center gap-8">
+                                        <p className="text-lg text-gray-600 font-semibold">
+                                            ${finalPrice}
+                                        </p>
+
+                                        <p className="flex font-semibold items-center text-gray-600">
+                                            Quantity:
+                                            <div className="flex items-center ms-1 gap-2 text-sm font-semibold">
+                                                <button onClick={() => setBaseQty(baseQty === 1 ? (baseQty = 1) : baseQty - 1)} className="border font-normal text-lg items-center justify-center px-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black"
+                                                >-</button>
+                                                {baseQty}
+                                                <button onClick={() => setBaseQty(baseQty + 1)} className="border font-normal text-lg items-center justify-center px-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black"
+                                                >+</button>
+                                            </div>
+                                        </p>
+
+                                    </div>
+
+                                    <div>
+                                        <p className="text-sm text-text_color">{item.description}</p>
+                                        <div className="flex items-center">
+                                            {Array.from(Array(parseInt(item.rating.rate)), (e, i) => {
+                                                return (
+                                                    <div className="text-yellow-500 ">
+                                                        <StarIcon />
+                                                    </div>
+                                                );
+                                            })}
+                                            {Array.from(Array(5 - parseInt(item.rating.rate)), (e, i) => {
+                                                return (
+                                                    <div className="text-yellow-500 ">
+                                                        <StarBorderOutlinedIcon />
+                                                    </div>)
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div className='flex gap-2'>
+                                        <button onClick={() => dispatch(addToCart({ ...item, quantity: baseQty })) && toast.success("Item added to cart!")} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
+                                            Add to Cart
+                                        </button>
+                                        <button className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
+                                            Buy Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
-            {/*Related Products*/}      
+
+            {/*Related Products*/}
             <h3 className="m-5" style={{ fontSize: "18px", fontWeight: "bold" }}>
                 Related Products
             </h3>
@@ -128,73 +141,46 @@ const ProductDetail = () => {
                     .filter(
                         (data) => data.category === item.category && data.id !== item.id
                     )
-                    .map((item) => (
+                    .map((prod) => (
                         <div
-                            key={item.id}
+                            key={prod.id}
                             className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30 hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative flex flex-col gap-4"
                         >
                             <span className="text-xs capitalize italic absolute top-2 left-2 text-gray-500">
-                                {item.category}
+                                {prod.category}
                             </span>
                             <span className="text-xs capitalize italic absolute top-2 right-2 text-yellow-500 cursor-pointer">
-                                <FavoriteBorderOutlinedIcon onClick={() => userInfo ? dispatch(addToWishlist({ ...item })) && toast.success("Item added to wishlist!") : handleLogin()} />
+                                <FavoriteBorderOutlinedIcon onClick={() => userInfo ? dispatch(addToWishlist({ ...prod })) && toast.success("Item added to wishlist!") : handleLogin()} />
                             </span>
                             <div className="w-full h-auto flex items-center justify-center relative group">
                                 <img
                                     className="w-52 h-64 object-contain"
-                                    src={item.image}
+                                    src={prod.image}
                                     alt="ProductImg"
                                 />
-                                <ul className="absolute w-full h-36 text-gray-600 bg-gray-100 -bottom-[160px] group-hover:bottom-0 duration-700 flex flex-col justify-center items-end gap-2 cursor-pointer">
-                                    <li className="productLi">
-                                        Compare
-                                        <span>
-                                            <ApiIcon />
-                                        </span>
-                                    </li>
-                                    <li onClick={() => dispatch(addToCart({ ...item, quantity: 1 })) && toast.success("Item added to cart!")} className="productLi">
-                                        Add to Cart
-                                        <span>
-                                            <ShoppingCartIcon />
-                                        </span>
-                                    </li>
-                                    <li onClick={() => navigate("/productdetail", { state: { item: item } })}
-                                        className="productLi"
-                                    >
-                                        View Details{" "}
-                                        <span>
-                                            <ArrowCircleRightIcon />
-                                        </span>
-                                    </li>
-                                    <li onClick={() => userInfo ? dispatch(addToWishlist({ ...item })) && toast.success("Item added to wishlist!") : handleLogin()} className="productLi">
-                                        Add to Wish List{" "}
-                                        <span>
-                                            <FavoriteIcon />
-                                        </span>
-                                    </li>
-                                </ul>
+                               
                             </div>
                             <div className="px-4 bg-white flex flex-col gap-1 z-10">
-                                <div className='cursor-pointer' onClick={() => navigate("/productdetail", { state: { item: item } })}>
+                                <div className='cursor-pointer' onClick={() => navigate("/productdetail", { state: { item: prod } })}>
                                     <div className="flex items-center justify-between">
                                         <h2 className="font-titleFont tracking-wide text-lg text-gray-600 font-medium">
-                                            {item.title.substring(0, 20)}
+                                            {prod.title.substring(0, 20)}
                                         </h2>
                                         <p className="text-sm text-gray-600 font-semibold">
-                                            ${item.price}
+                                            ${prod.price}
                                         </p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-text_color">{item.description.substring(0, 95)}...Read More</p>
+                                        <p className="text-sm text-text_color">{prod.description.substring(0, 95)}...Read More</p>
                                         <div className='flex items-center'>
-                                            {Array.from(Array(parseInt(item.rating.rate)), (e, i) => {
+                                            {Array.from(Array(parseInt(prod.rating.rate)), (e, i) => {
                                                 return (
                                                     <div className="text-yellow-500 ">
                                                         <StarIcon />
                                                     </div>)
                                             })}
 
-                                            {Array.from(Array(5 - parseInt(item.rating.rate)), (e, i) => {
+                                            {Array.from(Array(5 - parseInt(prod.rating.rate)), (e, i) => {
                                                 return (
                                                     <div className="text-yellow-500 ">
                                                         <StarBorderOutlinedIcon />
@@ -204,7 +190,7 @@ const ProductDetail = () => {
                                     </div>
                                 </div>
                                 <div className='flex gap-2'>
-                                    <button onClick={() => dispatch(addToCart({ ...item, quantity: 1 })) && toast.success("Item added to cart!")} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
+                                    <button onClick={() => dispatch(addToCart({ ...prod, quantity: 1 })) && toast.success("Item added to cart!")} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
                                         Add to Cart
                                     </button>
                                     <button className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">

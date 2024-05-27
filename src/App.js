@@ -18,6 +18,8 @@ import AllOrders from './admin/screens/AllOrders';
 import AllUsers from './admin/screens/AllUsers';
 import Login from './screens/Login';
 import Inventary from './admin/screens/Inventary';
+import Seller from './screens/Seller';
+import AllSellers from './admin/screens/AllSellers';
 
 function App() {
   const userInfo = useSelector(state => state.counter.userInfo);
@@ -41,6 +43,8 @@ function App() {
             <Route exact path="/allorders" element={<AllOrders />} />
             <Route exact path="/allusers" element={<AllUsers />} />
             <Route exact path="/inventary" element={<Inventary />} />
+            <Route exact path="/seller" element={<Seller />} />
+            <Route exact path="/allsellers" element={<AllSellers />} />
             <Route exact path="/paymenttest" element={<PaymentTest />} />
           </Routes>
           {userInfo && userInfo.email === process.env.REACT_APP_ADMIN_EMAIL ? '' :<Footer />}

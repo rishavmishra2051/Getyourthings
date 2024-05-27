@@ -3,6 +3,7 @@ import Product from '../components/Product'
 import Carousel from '../components/Carousel'
 import { useSelector } from 'react-redux';
 import AdminHome from '../admin/screens/AdminHome';
+import BottomIcons from '../components/BottomIcons';
 const Home = () => {
   const userInfo = useSelector(state => state.counter.userInfo);
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <>
       <Carousel />
       <Product />
+      
       </>}
     </div>
   )

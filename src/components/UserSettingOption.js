@@ -10,6 +10,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
 const UserSettingOption = (props) => {
     const ref = useRef();
     const auth = getAuth();
@@ -59,6 +60,12 @@ const UserSettingOption = (props) => {
 
                     >
                         Wishlist <FavoriteBorderOutlinedIcon className="scale-75" />
+                    </li>
+                    <li
+                        onClick={() => { navigate("/sellers"); props.closeSettingList(); }} className="text-yellow-500 tracking-wide font-titleFont rounded-md text-md flex items-center justify-center border hover:bg-gray-200 duration-300 cursor-pointer"
+
+                    >
+                        Seller <LoyaltyOutlinedIcon className="scale-75" />
                     </li>
                     <li
                         onClick={() => { navigate("/offers"); props.closeSettingList(); }} className="text-yellow-500 tracking-wide font-titleFont rounded-md text-md flex items-center justify-center border hover:bg-gray-200 duration-300 cursor-pointer"

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SearchIcon from "@mui/icons-material/Search";
 import SearchOffIcon from '@mui/icons-material/SearchOff';
-import { useLocation } from "react-router-dom";
-import Search from '../../components/Search';
 
 const Inventary = () => {
     const [search, setSearch] = useState("")

@@ -56,7 +56,8 @@ const AdminOrderItem = ({ order }) => {
                                     value={selectedStatus}
                                     onChange={(e) => setSelectedStatus(e.target.value)}
                                 >
-                                    <option value="Order placed">Change Status</option>
+                                    <option value={order.status} style={{ display: 'none' }}>{order.status}</option>
+                                    <option value="Order placed">Order placed</option>
                                     <option value="Ready to Ship">Ready to Ship</option>
                                     <option value="Shipped">Shipped</option>
                                     <option value="Out for Delivery">Out for Delivery</option>

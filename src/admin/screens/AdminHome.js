@@ -27,6 +27,9 @@ const AdminHome = () => {
                             View Orders
                         </div>
                     </div>
+                    <div className='admin-card' onClick={() => { navigate('/allsellers') }}>
+                        View Sellers
+                    </div>
                     <div className='admin-card' onClick={() => { handleChartClick('bar') }}>
                         Last 7 days Report
                     </div>

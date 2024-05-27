@@ -25,8 +25,7 @@ const AddAddress = (props) => {
             pincode: pincode,
             date: new Date().toLocaleDateString(),
         };
-        console.log(addressDoc)
-
+        
         addDoc(addressCollectionRef, addressDoc)
             .then((docRef) => {
                 toast.success("Address saved successfully!");
