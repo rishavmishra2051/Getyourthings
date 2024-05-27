@@ -51,7 +51,7 @@ const Product = () => {
           <div
             key={item.id}
             className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30 hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative flex flex-col gap-4 cursor-pointer"
-            onClick={() => navigate("/productdetail", { state: { item: item } })}
+            
           >
             <div className='flex'>
               <span className="text-xs capitalize italic absolute top-2 left-2 text-gray-500">
@@ -62,7 +62,7 @@ const Product = () => {
               </span>
             </div>
             {/* ========== Product Image Start here ============== */}
-            <div className="w-full h-auto flex items-center justify-center relative group">
+            <div className="w-full h-auto flex items-center justify-center relative group cursor-pointer" onClick={() => navigate("/productdetail", { state: { item: item } })}>
               <img
                 className="w-52 h-64 object-contain"
                 src={item.image}
@@ -97,7 +97,7 @@ const Product = () => {
         </ul>*/}
             </div>
             <div className="px-4 bg-white flex flex-col gap-1 z-10">
-              <div>
+              <div className='cursor-pointer' onClick={() => navigate("/productdetail", { state: { item: item } })}>
                 <div className="flex items-center justify-between">
                   <h2 className="font-titleFont tracking-wide text-lg text-gray-600 font-medium">
                     {item.title.substring(0, 20)}

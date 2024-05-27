@@ -152,7 +152,7 @@ const ProductDetail = () => {
                             <span className="text-xs capitalize italic absolute top-2 right-2 text-yellow-500 cursor-pointer">
                                 <FavoriteBorderOutlinedIcon onClick={() => userInfo ? dispatch(addToWishlist({ ...prod })) && toast.success("Item added to wishlist!") : handleLogin()} />
                             </span>
-                            <div className="w-full h-auto flex items-center justify-center relative group">
+                            <div className="w-full h-auto flex items-center justify-center relative group cursor-pointer" onClick={() => navigate("/productdetail", { state: { item: prod } })}>
                                 <img
                                     className="w-52 h-64 object-contain"
                                     src={prod.image}
