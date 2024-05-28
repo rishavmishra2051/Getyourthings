@@ -84,6 +84,18 @@ const Seller = () => {
               <Link to="mailto:getyourthingsteam@gmail.com" className='border border-blue-700 p-2'><span className='text-blue-700'>Contact Us</span></Link>
               </div>}
         </>}
+        <ToastContainer
+                position="top-left"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
     </div>
   )
 }

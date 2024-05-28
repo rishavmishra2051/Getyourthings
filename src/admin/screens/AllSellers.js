@@ -23,7 +23,7 @@ const AllSellers = () => {
                 <div style={{ color: 'green' }}><FiberManualRecordIcon /><span>Approved</span></div>
                 <div style={{ color: 'red' }}><FiberManualRecordIcon /><span>Rejected</span></div>
             </div>
-            <div className="mx-auto px-4 flex justify-between items-center mt-4">
+            <div className="mx-auto px-4 flex justify-between items-center mt-4 mb-3">
                 <div className="lg:inline-flex flex h-10 rounded-md flex-grow relative">
                     <input
                         className="h-full text-base bg-transparent rounded-tl-md rounded-bl-md flex-grow outline-none border-2 border-yellow-500 px-2"

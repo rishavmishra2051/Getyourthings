@@ -108,21 +108,7 @@ const Product = () => {
                 </div>
                 <div>
                   <p className="text-sm text-text_color">{item.description.substring(0, 95)}...Read More</p>
-                  <div className='flex items-center'>
-                    {Array.from(Array(parseInt(item.rating.rate)), (e, i) => {
-                      return (
-                        <div className="text-yellow-500 ">
-                          <StarIcon />
-                        </div>)
-                    })}
-
-                    {Array.from(Array(5 - parseInt(item.rating.rate)), (e, i) => {
-                      return (
-                        <div className="text-yellow-500 ">
-                          <StarBorderOutlinedIcon />
-                        </div>)
-                    })}
-                  </div>
+                  
                 </div>
               </div>
               <div className='flex gap-2'>

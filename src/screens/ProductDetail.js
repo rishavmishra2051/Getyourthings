@@ -64,11 +64,7 @@ const ProductDetail = () => {
                                     src={item.image}
                                     alt="ProductImg"
                                 />
-
                             </div>
-                            <small className="text-gray-500 text-center">
-                                {item.rating.count} People ordered this in last 7 days
-                            </small>
                         </div>
                     </div>
                     <div className="col-span-1">
@@ -99,21 +95,6 @@ const ProductDetail = () => {
 
                                     <div>
                                         <p className="text-sm text-text_color">{item.description}</p>
-                                        <div className="flex items-center">
-                                            {Array.from(Array(parseInt(item.rating.rate)), (e, i) => {
-                                                return (
-                                                    <div className="text-yellow-500 ">
-                                                        <StarIcon />
-                                                    </div>
-                                                );
-                                            })}
-                                            {Array.from(Array(5 - parseInt(item.rating.rate)), (e, i) => {
-                                                return (
-                                                    <div className="text-yellow-500 ">
-                                                        <StarBorderOutlinedIcon />
-                                                    </div>)
-                                            })}
-                                        </div>
                                     </div>
                                     <div className='flex gap-2'>
                                         <button onClick={() => dispatch(addToCart({ ...item, quantity: baseQty })) && toast.success("Item added to cart!")} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
@@ -172,21 +153,6 @@ const ProductDetail = () => {
                                     </div>
                                     <div>
                                         <p className="text-sm text-text_color">{prod.description.substring(0, 95)}...Read More</p>
-                                        <div className='flex items-center'>
-                                            {Array.from(Array(parseInt(prod.rating.rate)), (e, i) => {
-                                                return (
-                                                    <div className="text-yellow-500 ">
-                                                        <StarIcon />
-                                                    </div>)
-                                            })}
-
-                                            {Array.from(Array(5 - parseInt(prod.rating.rate)), (e, i) => {
-                                                return (
-                                                    <div className="text-yellow-500 ">
-                                                        <StarBorderOutlinedIcon />
-                                                    </div>)
-                                            })}
-                                        </div>
                                     </div>
                                 </div>
                                 <div className='flex gap-2'>

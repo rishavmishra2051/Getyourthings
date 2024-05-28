@@ -45,7 +45,7 @@ const OrderChart = ({ type }) => {
         const labels = sortedDates;
         const data = sortedDates.map(date => orderCountByDate[date]);
 
-        const colors = generateRandomColors(data.length); // Generate random colors
+        const colors = generateDarkColors(data.length); // Generate random colors
 
         const ctx = document.getElementById('orderChart').getContext('2d');
         chartRef.current = new Chart(ctx, {
@@ -77,13 +77,16 @@ const OrderChart = ({ type }) => {
     };
 
     // Function to generate random colors
-    const generateRandomColors = (numColors) => {
+    const generateDarkColors = (numColors) => {
         const colors = [];
-        for (let i = 0; i < numColors; i++) {
-            const color = `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 0.6)`;
-            colors.push(color);
-        }
-        return colors;
+    for (let i = 0; i < numColors; i++) {
+        const r = Math.floor(Math.random() * 156) + 100; // Values between 100 and 255 for brighter colors
+        const g = Math.floor(Math.random() * 156) + 100;
+        const b = Math.floor(Math.random() * 156) + 100;
+        const color = `rgba(${r}, ${g}, ${b}, 1)`; // Full opacity for maximum visibility
+        colors.push(color);
+    }
+    return colors;
     };
 
     return (

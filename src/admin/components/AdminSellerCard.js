@@ -6,9 +6,8 @@ import { updateDoc, doc } from "firebase/firestore";
 import { sellerRef } from "../../FirebaseConfig";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 const AdminSellerCard = ({ seller }) => {
-    console.log(seller)
     const [expanded, setExpanded] = useState(false);
-    const [selectedStatus, setSelectedStatus] = useState(seller.status); // State to track the selected status
+    const [selectedStatus, setSelectedStatus] = useState(seller.status);
 
     const toggleExpanded = () => {
         setExpanded(!expanded);
@@ -20,8 +19,8 @@ const AdminSellerCard = ({ seller }) => {
             await updateDoc(doc(sellerRef, seller.id), { verification: selectedStatus });
             toast.success('Status updated successfully!');
         } catch (error) {
-            console.error('Failed to update order status: ', error);
-            toast.error('Failed to update order status');
+            console.error('Failed to update seller verification status: ', error);
+            toast.error('Failed to update verification status');
         }
     };
     

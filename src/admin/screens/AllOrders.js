@@ -33,7 +33,6 @@ const AllOrders = () => {
   const toggleExpanded = () => {
     setExpanded(!expanded);
   };
-  console.log(statuscategory)
   return (
     <div>
       <div className="mx-auto px-4 flex justify-between items-center mt-4">

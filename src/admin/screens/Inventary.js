@@ -1,25 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import SearchIcon from "@mui/icons-material/Search";
 import SearchOffIcon from '@mui/icons-material/SearchOff';
-
+import { fetchProducts } from '../../FirebaseConfig';
+import { updateDoc, doc } from "firebase/firestore";
+import { productRef } from "../../FirebaseConfig";
+import { ToastContainer, toast } from "react-toastify";
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 const Inventary = () => {
-    const [search, setSearch] = useState("")
-    const [products, setProducts] = useState([])
-    const loadProducts = async () => {
-        let response = await fetch('https://fakestoreapi.com/products', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-        });
-        response = await response.json();
-        setProducts(response);
-    }
+    const [search, setSearch] = useState("");
+    const [products, setProducts] = useState([]);
     useEffect(() => {
-        loadProducts()
-    }, [])
+        const fetchData = async () => {
+            const products = await fetchProducts();
+            // Sort products by date before setting the state
+            const sortedProducts = products.sort((a, b) => new Date(b.date) - new Date(a.date));
+            setProducts(sortedProducts);
+        };
+        fetchData();
+    }, []);
 
+    const hideProduct = async (id) => {
+        try {
+            await updateDoc(doc(productRef, id), { verification: "Pending" });
+            toast.success('Product hide from buyer Side!');
+        } catch (error) {
+            console.error('Failed to update product verification status: ', error);
+            toast.error('Failed to hide product from buyer side!');
+        }
+    };
+
+    const showProduct = async (id) => {
+        try {
+            await updateDoc(doc(productRef, id), { verification: "Approved" });
+            toast.success('Product showing at buyer Side!');
+        } catch (error) {
+            console.error('Failed to update product verification status: ', error);
+            toast.error('Failed to show product at buyer side!');
+        }
+    };
 
     return (
         <div>
@@ -43,10 +61,11 @@ const Inventary = () => {
                             className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30 hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative flex flex-col gap-4 cursor-pointer"
                         >
                             <div className='flex'>
-                                <span className="text-xs capitalize italic absolute top-2 left-2 text-gray-500">
-                                    {item.category}
+                                <FiberManualRecordIcon style={{ color: item.verification === 'Approved' ? 'green' : item.verification === 'Pending' ? 'red' : 'black'}} className="text-md absolute top-2 left-2 text-gray-800" />
+                                
+                                <span className="text-md absolute top-2 right-2 text-gray-800">
+                                    ₹{item.price}
                                 </span>
-
                             </div>
                             <div className="w-full h-auto flex items-center justify-center relative group">
                                 <img
@@ -62,28 +81,41 @@ const Inventary = () => {
                                             {item.title.substring(0, 20)}
                                         </h2>
                                         <p className="text-sm text-gray-600 font-semibold">
-                                            ${item.price}
+                                            Qty: {item.quantity}
                                         </p>
                                     </div>
-                                    <div>
-                                        <p className="text-sm text-text_color">{item.description.substring(0, 95)}...Read More</p>
-
+                                    <div className="text-sm text-gray-600 font-semibold">
+                                        Category: {item.category}
+                                    </div>
+                                    <div className="text-sm text-gray-600 font-semibold">
+                                        Seller: {item.sellerEmail}
                                     </div>
                                 </div>
                                 <div className='flex gap-2'>
-
-                                <input placeholder="Centered Text" className="w-full p-1.5 mt-3 font-titleFont rounded-md text-center font-medium text-base border border-purple-500 " />
-                                    <button className="w-full py-1.5 mt-3 font-titleFont rounded-md  font-medium text-base bg-gradient-to-tr from-purple-500 to-purple-300 border border-purple-600 hover:border-purple-800 hover:from-purple-400 to hover:to-purple-500 active:bg-gradient-to-bl active:from-purple-500 active:to-purple-600 duration-200">
-                                        Update
+                                    <button onClick={()=> showProduct(item.id)} className="w-full py-1.5 mt-3 font-titleFont rounded-md  font-medium text-base bg-gradient-to-tr from-purple-500 to-purple-300 border border-purple-600 hover:border-purple-800 hover:from-purple-400 to hover:to-purple-500 active:bg-gradient-to-bl active:from-purple-500 active:to-purple-600 duration-200">
+                                        Show
+                                    </button>
+                                    <button onClick={()=> hideProduct(item.id)} className="w-full py-1.5 mt-3 font-titleFont rounded-md  font-medium text-base bg-gradient-to-tr from-purple-500 to-purple-300 border border-purple-600 hover:border-purple-800 hover:from-purple-400 to hover:to-purple-500 active:bg-gradient-to-bl active:from-purple-500 active:to-purple-600 duration-200">
+                                        Hide
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )) : <div className="w-full h-full flex items-center justify-center"><SearchOffIcon /> No Product Found</div>}
-
             </div>
+            <ToastContainer
+                position="top-left"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
-
     )
 }
 
