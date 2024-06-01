@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 import ListIcon from '@mui/icons-material/List';
 import { useMediaQuery } from '@mui/material';
+import { categoriesList } from '../constants/Categories';
 const Search = (props) => {
     let navigate = useNavigate();
     const [categories, setCategories] = useState([]);
@@ -17,13 +18,15 @@ const Search = (props) => {
         });
     }, [ref, showAll]);
     const loadCategories = async () => {
-        let response = await fetch("https://fakestoreapi.com/products/categories", {
+        /*let response = await fetch("https://fakestoreapi.com/products/categories", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         });
         response = await response.json();
+        setCategories(response);*/
+        const response = categoriesList;
         setCategories(response);
     };
     useEffect(() => {
@@ -51,7 +54,7 @@ const Search = (props) => {
                             <ListIcon />
                         </span>
                         {showAll && (
-                            <div>
+                            <div className=''>
                                 <ul
                                     ref={ref}
                                     className="absolute w-40 h-30 top-10 left-0 rounded-md overflow-x-hidden bg-gray-500 border-[1px] border-yellow-500 text-black p-2 flex flex-col gap-1 z-50"

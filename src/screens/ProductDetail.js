@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../redux/counterSlice';
 import { addToWishlist } from '../redux/wishList';
 import { ToastContainer, toast } from "react-toastify";
+import ProductCard from "../components/ProductCard";
 const ProductDetail = () => {
     const { state } = useLocation();
     const { item } = state;
@@ -123,47 +124,8 @@ const ProductDetail = () => {
                         (data) => data.category === item.category && data.id !== item.id
                     )
                     .map((prod) => (
-                        <div
-                            key={prod.id}
-                            className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30 hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative flex flex-col gap-4"
-                        >
-                            <span className="text-xs capitalize italic absolute top-2 left-2 text-gray-500">
-                                {prod.category}
-                            </span>
-                            <span className="text-xs capitalize italic absolute top-2 right-2 text-yellow-500 cursor-pointer">
-                                <FavoriteBorderOutlinedIcon onClick={() => userInfo ? dispatch(addToWishlist({ ...prod })) && toast.success("Item added to wishlist!") : handleLogin()} />
-                            </span>
-                            <div className="w-full h-auto flex items-center justify-center relative group cursor-pointer" onClick={() => navigate("/productdetail", { state: { item: prod } })}>
-                                <img
-                                    className="w-52 h-64 object-contain"
-                                    src={prod.image}
-                                    alt="ProductImg"
-                                />
-                               
-                            </div>
-                            <div className="px-4 bg-white flex flex-col gap-1 z-10">
-                                <div className='cursor-pointer' onClick={() => navigate("/productdetail", { state: { item: prod } })}>
-                                    <div className="flex items-center justify-between">
-                                        <h2 className="font-titleFont tracking-wide text-lg text-gray-600 font-medium">
-                                            {prod.title.substring(0, 20)}
-                                        </h2>
-                                        <p className="text-sm text-gray-600 font-semibold">
-                                            ${prod.price}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-text_color">{prod.description.substring(0, 95)}...Read More</p>
-                                    </div>
-                                </div>
-                                <div className='flex gap-2'>
-                                    <button onClick={() => dispatch(addToCart({ ...prod, quantity: 1 })) && toast.success("Item added to cart!")} className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
-                                        Add to Cart
-                                    </button>
-                                    <button className="w-full py-1.5 rounded-md mt-3 font-titleFont font-medium text-base bg-gradient-to-tr from-yellow-400 to-yellow-200 border border-yellow-500 hover:border-yellow-700 hover:from-yellow-300 to hover:to-yellow-400 active:bg-gradient-to-bl active:from-yellow-400 active:to-yellow-500 duration-200">
-                                        Buy Now
-                                    </button>
-                                </div>
-                            </div>
+                        <div key={prod.id}>
+                            <ProductCard item={prod} />
                         </div>
                     ))}
             </div>

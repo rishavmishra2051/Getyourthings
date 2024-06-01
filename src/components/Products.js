@@ -14,29 +14,30 @@ import { addToWishlist } from '../redux/wishList';
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { ToastContainer, toast } from "react-toastify";
 import ProductCard from './ProductCard';
-const Product = () => {
-  const [products, setProducts] = useState([])
-  const location = useLocation();
-  const search = location.state ? location.state.search : '';
-  const category = location.state ? location.state.search : '';
-  
-  const loadProducts = async () => {
-    let response = await fetch('https://fakestoreapi.com/products', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-
-    });
-    response = await response.json();
-    setProducts(response);
-  }
-  useEffect(() => {
-    loadProducts()
-  }, [])
-
-  return (
-    <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 xl:gap-4 px-4">
+import { fetchProducts, productRef } from '../FirebaseConfig';
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+};
+const Products = () => {
+    const [products, setProducts] = useState([])
+    const location = useLocation();
+    const search = location.state ? location.state.search : '';
+    const category = location.state ? location.state.search : '';
+    useEffect(() => {
+        const fetchData = async () => {
+            const prods = await fetchProducts();
+            const approvedProds = prods.filter(product => product.verification === "Approved");
+            const shuffledProds = shuffleArray(approvedProds);
+            setProducts(shuffledProds);
+        };
+        fetchData();
+    }, []);
+    return (
+        <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 xl:gap-4 px-4">
       {products.length > 0 ? products.filter(
         (data) => data.title.toLowerCase().includes(search.toLowerCase()) || data.category.toLowerCase().includes(search.toLowerCase()) || data.description.toLowerCase().includes(search.toLowerCase()) && data.category.toLowerCase().includes(category.toLowerCase()))
         .map((item) => (
@@ -57,7 +58,7 @@ const Product = () => {
         theme="dark"
       />
     </div>
-  )
+    )
 }
 
-export default Product
+export default Products

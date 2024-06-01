@@ -12,22 +12,22 @@ const DashboardCards = () => {
 
                     <div className="cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg p-6 shadow-lg text-white">
                         <h2 className="text-xl font-semibold mb-2">Orders</h2>
-                        <p className="text-gray-200">Contenido de la tarjeta 1...</p>
+                        <p className="text-gray-200">Total Orders: </p>
                     </div>
 
                     <div onClick={() => setProductList(true)} className="cursor-pointer bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg p-6 shadow-lg text-white">
                         <h2 className="text-xl font-semibold mb-2">Products</h2>
-                        <p className="text-gray-200">Contenido de la tarjeta 2...</p>
+                        <p className="text-gray-200">Total Products: </p>
                     </div>
 
                     <div onClick={() => setAddProduct(true)} className="cursor-pointer bg-gradient-to-r from-green-500 to-lime-500 rounded-lg p-6 shadow-lg text-white">
                         <h2 className="text-xl font-semibold mb-2">Add Product</h2>
-                        <p className="text-gray-200">Contenido de la tarjeta 3...</p>
+                        <p className="text-gray-200">Add a new product</p>
                     </div>
 
                     <div className="cursor-pointer bg-gradient-to-r from-yellow-500 to-amber-500 rounded-lg p-6 shadow-lg text-white">
-                        <h2 className="text-xl font-semibold mb-2">Tarjeta 4</h2>
-                        <p className="text-gray-200">Contenido de la tarjeta 4...</p>
+                        <h2 className="text-xl font-semibold mb-2">Tarjeta</h2>
+                        <p className="text-gray-200"></p>
                     </div>
                 </div>
             </div>

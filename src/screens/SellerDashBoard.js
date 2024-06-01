@@ -11,9 +11,7 @@ const SellerDashBoard = () => {
             <DashboardCards />
           </div>
           <div className="col-span-1 flex justify-center items-center">
-            <div className=''>
-              <Card />
-            </div>
+            
           </div>
         </div>
       </div>

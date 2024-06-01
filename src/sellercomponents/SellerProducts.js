@@ -6,17 +6,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { fetchProducts, productRef } from '../FirebaseConfig';
 import { updateDoc, doc } from "firebase/firestore";
+import { useSelector } from 'react-redux';
 
 const SellerProducts = (props) => {
     const [search, setSearch] = useState("");
     const [products, setProducts] = useState([]);
     const [quantities, setQuantities] = useState({});
+    const userInfo = useSelector(state => state.counter.userInfo);
 
     useEffect(() => {
         const fetchData = async () => {
             const products = await fetchProducts();
+            const sellerProd = products.filter(prod=>prod.sellerEmail===userInfo.email);
             // Sort products by date before setting the state
-            const sortedProducts = products.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const sortedProducts = sellerProd.sort((a, b) => new Date(b.date) - new Date(a.date));
             setProducts(sortedProducts);
             // Initialize quantities state with the current quantities of the products
             const initialQuantities = sortedProducts.reduce((acc, product) => {
@@ -72,6 +75,9 @@ const SellerProducts = (props) => {
                                             className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30 hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative flex flex-col gap-4 cursor-pointer"
                                         >
                                             <div className='flex'>
+                                            <span style={{ color: item.verification === 'Approved' ? 'green' : item.verification === 'Rejected' ? 'red' : '#f8b500' }} className="text-md absolute top-2 left-2 text-gray-800">
+                                                    {item.verification}
+                                                </span>
                                                 <span className="text-md absolute top-2 right-2 text-gray-800">
                                                     ₹{item.price}
                                                 </span>

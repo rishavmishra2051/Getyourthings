@@ -14,9 +14,10 @@ const Header = () => {
     const isMobile = useMediaQuery('(max-width: 720px)');
     const [settingList, setSettingList] = useState(false);
     //console.log(userInfo.email);
+    //bg-header_color text-whiteText
     return (
         <div className='sticky top-0 z-50'>
-            <nav className="bg-header_color text-whiteText py-4 gap-2">
+            <nav className="bg-gradient-to-tr from-yellow-400 to-yellow-200 text-gray-800 py-4 gap-2">
                 <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
                     {/* Logo */}
                     <div className="flex items-center gap-2 cursor-pointer" onClick={() => { navigate("/") }}>
